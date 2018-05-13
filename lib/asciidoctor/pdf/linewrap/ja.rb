@@ -15,6 +15,11 @@ Extensions.register do
           paragraph.lines[i] = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(line)
         end
       end
+
+      list_items = document.find_by context: :list_item
+      list_items.each do |list_item|
+        list_item.text = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(list_item.text)
+      end
     end
   end
 end

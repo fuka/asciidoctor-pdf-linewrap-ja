@@ -38,17 +38,37 @@ module Asciidoctor
           end
 
           def self.insert_zero_width_space?(ch, next_ch)
-            japanese_char?(ch) \
-              && !PROHIBIT_LINE_BREAK_AFTER.include?(ch) \
-              && next_ch != nil && !PROHIBIT_LINE_BREAK_BEFORE.include?(next_ch) \
-              && !(PROHIBIT_DIVIDE.include?(ch) && PROHIBIT_DIVIDE.include?(next_ch))
+
+            if japanese_char?(ch)
+              return !prohibit_line_break?(ch, next_ch)
+            elsif next_ch != nil && japanese_char?(next_ch)
+              return !prohibit_line_break_before?(next_ch)
+            end
+
+            return false
           end
 
           def self.japanese_char?(ch)
             (/[\p{Han}\p{Hiragana}\p{Katakana}ー]/ === ch) \
-              || PROHIBIT_LINE_BREAK_BEFORE.include?(ch) \
-              || PROHIBIT_LINE_BREAK_AFTER.include?(ch) \
-              || PROHIBIT_DIVIDE.include?(ch)
+            || PROHIBIT_LINE_BREAK_BEFORE.include?(ch) \
+            || PROHIBIT_LINE_BREAK_AFTER.include?(ch) \
+            || PROHIBIT_DIVIDE.include?(ch)
+          end
+
+          def self.prohibit_line_break?(ch, next_ch)
+            prohibit_line_break_after?(ch) || prohibit_line_break_before?(next_ch) || prohibit_divide?(ch, next_ch)
+          end
+
+          def self.prohibit_line_break_after?(ch)
+            PROHIBIT_LINE_BREAK_AFTER.include?(ch)
+          end
+
+          def self.prohibit_line_break_before?(ch)
+            ch == nil || PROHIBIT_LINE_BREAK_BEFORE.include?(ch)
+          end
+
+          def self.prohibit_divide?(ch, next_ch)
+            next_ch == nil || (PROHIBIT_DIVIDE.include?(ch) && PROHIBIT_DIVIDE.include?(next_ch))
           end
         end
       end

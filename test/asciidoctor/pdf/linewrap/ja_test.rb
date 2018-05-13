@@ -5,6 +5,11 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     refute_nil ::Asciidoctor::Pdf::Linewrap::Ja::VERSION
   end
 
+  def test_url
+    result = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space('http://www.example.com')
+    assert_equal("http://www.example.com", result)
+  end
+
   def test_japanese_char_hiragana
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('あ')
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('ん')

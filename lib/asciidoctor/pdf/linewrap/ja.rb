@@ -12,7 +12,8 @@ Extensions.register do
       paragraphs = document.find_by context: :paragraph
       paragraphs.each do |paragraph|
         paragraph.lines.each_with_index do |line, i|
-          paragraph.lines[i] = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(line)
+          modified = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(line)
+          paragraph.lines[i] = Asciidoctor::Pdf::Linewrap::Ja::Converter::remove_zero_width_space(modified)
         end
       end
 

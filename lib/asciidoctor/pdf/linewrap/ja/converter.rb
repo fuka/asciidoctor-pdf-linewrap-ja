@@ -58,6 +58,12 @@ module Asciidoctor
             return false
           end
 
+          def self.remove_zero_width_space(line)
+            line.gsub(/http.*?[\]\s]/) do |href|
+              href.gsub(/#{ZERO_WIDTH_SPACE}/, "")
+            end
+          end
+
           def self.japanese_char?(ch)
             (/[\p{Han}\p{Hiragana}\p{Katakana}ー]/ === ch) \
             || PROHIBIT_LINE_BREAK_BEFORE.include?(ch) \

@@ -9,6 +9,28 @@ Extensions.register do
   treeprocessor do
 
     process do |document|
+
+      tables = document.find_by context: :table
+        tables.each do |table|
+        table.rows.head.each do |head|
+          head.each do |cell|
+            cell.text = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(cell.text)
+          end
+        end
+
+        table.rows.body.each do |body|
+          body.each do |cell|
+            cell.text = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(cell.text)
+          end
+        end
+
+        table.rows.foot.each do |foot|
+          foot.each do |cell|
+            cell.text = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(cell.text)
+          end
+        end
+      end
+
       paragraphs = document.find_by context: :paragraph
       paragraphs.each do |paragraph|
         paragraph.lines.each_with_index do |line, i|

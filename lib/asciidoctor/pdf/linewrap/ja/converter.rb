@@ -44,7 +44,7 @@ module Asciidoctor
               new_line << ZERO_WIDTH_SPACE if insert_zero_width_space?(ch, line[idx + 1])
             end
 
-            return new_line
+            return remove_zero_width_space(new_line)
           end
 
           def self.insert_zero_width_space?(ch, next_ch)

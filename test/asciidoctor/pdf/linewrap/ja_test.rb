@@ -10,6 +10,11 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     assert_equal("http://www.example.com", result)
   end
 
+  def test_insert_zero_width_space_nil
+    # nilが来たらnilをそのまま返す
+    assert_nil Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(nil)
+  end
+
   def test_japanese_char_hiragana
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('あ')
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('ん')

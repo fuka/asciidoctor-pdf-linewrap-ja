@@ -36,6 +36,8 @@ module Asciidoctor
 
           def self.insert_zero_width_space(line)
 
+            return line if line.nil?
+
             new_line = ''
 
             line.each_char.with_index do |ch, idx|

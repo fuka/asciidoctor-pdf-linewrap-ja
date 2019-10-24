@@ -68,13 +68,6 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('‥')
   end
 
-  def test_japanese_char_punctuation_half_width
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?(',')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('.')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('!')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('?')
-  end
-
   def test_japanese_char_symbol_full_width
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('「')
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('」')
@@ -82,15 +75,6 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('』')
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('【')
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('】')
-  end
-
-  def test_japanese_char_symbol_half_width
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('(')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?(')')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('<')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('>')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?('[')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::japanese_char?(']')
   end
 
   def test_insert_zero_width_space_hiragana
@@ -146,13 +130,9 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '？')
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '・')
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '、')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', ')')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '-')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '!')
 
     # 次に行末禁則文字が来るときは挿入可
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '「')
-    assert Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '(')
 
     # 次に分離禁止文字が来るときは挿入可
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('っ', '…')
@@ -214,13 +194,9 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '？')
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '・')
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '、')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', ')')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '-')
-    refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '!')
 
     # 次に行末禁則文字が来るときは挿入可
     assert Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '「')
-    assert Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '(')
 
     # 次に分離禁止文字が来るときは挿入不可
     refute Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space?('‥', '…')

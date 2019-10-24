@@ -15,17 +15,8 @@ module Asciidoctor
             '・' +
             '、。'
 
-          # 行頭禁則文字（半角）
-          PROHIBIT_LINE_BREAK_BEFORE_HALF_WIDTH =
-            ')]>}' +
-            '-=~' +
-            '?!'
-
           # 行末禁則文字
           PROHIBIT_LINE_BREAK_AFTER = '（｛〔〈《「『【〘〖〝｟«'
-
-          # 行末禁則文字（半角）
-          PROHIBIT_LINE_BREAK_AFTER_HALF_WIDTH = '([<{'
 
           # 分離禁止文字
           PROHIBIT_DIVIDE = '…‥〳〴〵'
@@ -78,11 +69,11 @@ module Asciidoctor
           end
 
           def self.prohibit_line_break_after?(ch)
-            PROHIBIT_LINE_BREAK_AFTER.include?(ch) || PROHIBIT_LINE_BREAK_AFTER_HALF_WIDTH.include?(ch)
+            PROHIBIT_LINE_BREAK_AFTER.include?(ch)
           end
 
           def self.prohibit_line_break_before?(ch)
-            ch == nil || PROHIBIT_LINE_BREAK_BEFORE.include?(ch) || PROHIBIT_LINE_BREAK_BEFORE_HALF_WIDTH.include?(ch)
+            ch == nil || PROHIBIT_LINE_BREAK_BEFORE.include?(ch)
           end
 
           def self.prohibit_divide?(ch, next_ch)

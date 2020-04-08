@@ -46,6 +46,13 @@ Extensions.register do
         raw_text = get_raw_text(list_item)
         list_item.text = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(raw_text)
       end
+
+      admonitions = document.find_by context: :admonition
+      admonitions.each do |admonition|
+        admonition.lines.each_with_index do |line, i|
+          admonition.lines[i] = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(line)
+        end
+      end
     end
 
     def get_raw_text(item)

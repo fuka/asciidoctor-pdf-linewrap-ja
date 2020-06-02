@@ -7,7 +7,18 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
 
   def test_url
     result = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space('http://www.example.com')
-    assert_equal("http://www.example.com", result)
+    assert_equal('http://www.example.com', result)
+  end
+
+  def test_block_image
+    result = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space('image::画像01.jpg[Sunset,300,200]')
+    assert_equal('image::画像01.jpg[Sunset,300,200]', result)
+  end
+
+  def test_inline_image
+    line = 'Click image:icons/画像02.png[Play, title="Play"] to get the party started.'
+    result = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space(line)
+    assert_equal(line, result)
   end
 
   def test_insert_zero_width_space_nil

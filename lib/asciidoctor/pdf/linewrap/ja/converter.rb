@@ -56,8 +56,12 @@ module Asciidoctor
           end
 
           def self.remove_zero_width_space(line)
-            line.gsub(/http.*?[\]\s]/) do |href|
+            line = line.gsub(/http.*?[\]\s]/) do |href|
               href.gsub(/#{ZERO_WIDTH_SPACE}/, "")
+            end
+
+            line.gsub(/image:.*?\]/) do |image|
+              image.gsub(/#{ZERO_WIDTH_SPACE}/, "")
             end
           end
 

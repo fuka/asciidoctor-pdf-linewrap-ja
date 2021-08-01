@@ -46,7 +46,9 @@ module Asciidoctor
 
           def self.insert_zero_width_space?(ch, next_ch)
 
-            if japanese_char?(ch)
+            if ch == '\\'
+              return false
+            elsif japanese_char?(ch)
               return !prohibit_line_break?(ch, next_ch)
             elsif next_ch != nil && japanese_char?(next_ch)
               return !prohibit_line_break_before?(next_ch)

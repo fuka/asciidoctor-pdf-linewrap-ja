@@ -10,6 +10,11 @@ class Asciidoctor::Pdf::Linewrap::JaTest < Minitest::Test
     assert_equal('http://www.example.com', result)
   end
 
+  def test_backslash
+    result = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space('あ\い\う\え\お')
+    assert_equal('あ{zwsp}\い{zwsp}\う{zwsp}\え{zwsp}\お', result)
+  end
+
   def test_block_image
     result = Asciidoctor::Pdf::Linewrap::Ja::Converter::insert_zero_width_space('image::画像01.jpg[Sunset,300,200]')
     assert_equal('image::画像01.jpg[Sunset,300,200]', result)
